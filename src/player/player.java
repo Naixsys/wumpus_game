@@ -2,11 +2,12 @@ package player;
 
 public class player {
 
-    private int health = 3;
+    private int lives = 3;
+    private boolean health = true;
     
     public player () {
 
-        System.out.println("Spawning new player.");
+        System.out.print("Player spawned at " + spawn_map.getCurrentLocation("player"));
     }
 
 }
