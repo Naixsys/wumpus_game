@@ -1,4 +1,4 @@
-package pit;
+package pits;
 import map.map;
 public class pit extends map 
 {

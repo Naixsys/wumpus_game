@@ -2,12 +2,13 @@ package map;
 
 import java.util.Random;
 
+import pits.pit;
 import player.player;
 import wumpus.wumpus;
 
 public class map{
     protected Random rander = new Random();
-    protected String [][] map_grid;
+    final protected String [][] map_grid;
 
     public map ()
      {
@@ -18,33 +19,12 @@ public class map{
     {   
         while (true)
         {
-            String position_of[][];
-            position_of = map_grid;
+            
             int xpos = rander.nextInt(map_grid.length);
             int ypos = rander.nextInt(map_grid[0].length); 
-            if (position_of[xpos][ypos] == null)
+            if (map_grid[xpos][ypos] == null)
             {
-            position_of[xpos][ypos] = ("wumpus");
-            break;
-            }
-
-        int x_size = rander.nextInt(5);
-        int y_size = rander.nextInt(5);
-        map_grid = new String [x_size] [y_size];
-
-    }
-
-    public void setRandomPosition(wumpus wumpus)
-    {   
-        while (true)
-        {
-            String position_of[][];
-            position_of = map_grid;
-            int xpos = rander.nextInt(map_grid.length);
-            int ypos = rander.nextInt(map_grid[0].length); 
-            if (position_of[xpos][ypos] == null)
-            {
-            position_of[xpos][ypos] = ("Wumpus");
+            map_grid[xpos][ypos] = ("wumpus");
             break;
             }
 
@@ -55,41 +35,20 @@ public class map{
         }
     }
 
-    public void setRandomPosition(player player)
-    {
-        boolean runner = true;
-        while (runner)
-        {
-            String position_of[][];
-            position_of = map_grid;
-            int xpos = rander.nextInt(map_grid.length);
-            int ypos = rander.nextInt(map_grid[0].length);
-            if (position_of[xpos][ypos] == null)
-            {
-            position_of[xpos][ypos] = "Player";
-            runner = false;
-            }
-
-            else 
-             {
-                continue;
-             }
-        }
-    }
+    
 
     public void setRandomPosition(player player)
     {
         
         while (true)
         {
-            String position_of[][];
-            position_of = map_grid;
+            
             int xpos = rander.nextInt(map_grid.length);
-            int ypos = rander.nextInt(map_grid[0].length);
-            if (position_of[xpos][ypos] == null)
+            int ypos = rander.nextInt(map_grid[0].length); 
+            if (map_grid[xpos][ypos] == null)
             {
-            position_of[xpos][ypos] = "player";
-            runner = false;
+            map_grid[xpos][ypos] = ("player");
+            break;
             }
 
             else 
@@ -103,14 +62,13 @@ public class map{
     {
         while (true)
         {
-            String position_of[][];
-            position_of = map_grid;
+            
             int xpos = rander.nextInt(map_grid.length);
-            int ypos = rander.nextInt(map_grid[0].length);
-            if (position_of[xpos][ypos] == null)
+            int ypos = rander.nextInt(map_grid[0].length); 
+            if (map_grid[xpos][ypos] == null)
             {
-            position_of[xpos][ypos] = "pit";
-            runner = false;
+            map_grid[xpos][ypos] = ("pit");
+            break;
             }
 
             else 
@@ -120,59 +78,88 @@ public class map{
         }
     }
 
+
+   
+
     public String getCurrentLocation(String regex)
     {
-
+        String loc = "";
         for (int x = 0; x < map_grid.length; x++)
         {
-            for (int y = 0; y < map_grid.length; y++)
+            for (int y = 0; y < map_grid[0].length; y++)
             {
                 if (map_grid[x][y] == regex)
                 {
-                    return (x + "," + y);
+                    loc = (x + "," + y);
+                    
                 } 
             }
         }
+        return loc;
     }
 
+    public void setCurrentLocation(String regex, int x_pos, int y_pos)
+    {
+        String curr_loc = getCurrentLocation(regex);
+        String[] c_pos = curr_loc.split(",");
+        map_grid[Integer.parseInt(c_pos[0])][Integer.parseInt(c_pos[1])] = null;
+        map_grid[Integer.parseInt(c_pos[0]+x_pos)][Integer.parseInt(c_pos[1]+y_pos)] = regex;
+        
+    }
+    
     public void move(String direction, String current_location, String moved_obj)
     {
-        int x, y = current_location.split(",");
-        System.out.println(mapping.length "and" mapping[0].length);
+        String [] cords = current_location.split(",");
+        System.out.println(cords);
 
         if (direction == "up")
         {
-            if (y == 4) 
+            if (cords[1] == "4") 
             {
                 System.out.println("Already at the top of the map");
             }
 
+            else
+            {
+                setCurrentLocation(moved_obj, 0, 1);
+            }
         }
         if (direction == "down")
         {
-            if (y == 0) 
+            if (cords[1] == "0") 
             {
                 System.out.println("Already at the bottom of the map");
+            }
+
+            else
+            {
+                setCurrentLocation(moved_obj, 0, -1);
             }
         }
         if (direction == "left")
         {
-            if (x == 0) 
+            if (cords[0] == "0") 
             {
                 System.out.println("Already at the far west of the map");
+            }
+
+            else
+            {
+                setCurrentLocation(moved_obj, -1, 0);
             }
         }
         if (direction == "right")
         {
-            if (x == 4) 
+            if (cords[0] == "4") 
             {
                 System.out.println("Already at the far east of the map");
             }
+
+            else
+            {
+                setCurrentLocation(moved_obj, 1, 0);
+            }
         }
     }
-    /*public int getXSize()
-    {   
-        System.out.println(map_grid.length);
-        return map_grid.length;
-    } */
+
 }
