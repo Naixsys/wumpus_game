@@ -5,7 +5,7 @@ import java.util.Random;
 
 public class map {
     protected Random rander = new Random();
-    private volatile String[][] map_grid;
+    public volatile String[][] map_grid;
 
     public map() {
         map_grid = new String[5][5];
@@ -13,7 +13,7 @@ public class map {
 
     public void setRandomPosition(String entity) {
         while (true) {
-
+            
             int xpos = rander.nextInt(map_grid[0].length);
             int ypos = rander.nextInt(map_grid.length);
             if (xpos < 0) {
@@ -36,7 +36,7 @@ public class map {
     }
 
     public String getCurrentLocation(String regex) {
-        String loc = "Something";
+        String loc = "Error, can't find the location of " + regex + " on the map.";
         for (int x = 0; x < map_grid.length; x++) {
             for (int y = 0; y < map_grid[0].length; y++) {
                 if (map_grid[x][y] == regex) {
@@ -47,7 +47,7 @@ public class map {
             }
         }
         // System.out.println(loc);
-        return "Error, cannot find " + regex;
+        return loc;
     }
 
     public void setCurrentLocation(String transport, int x_pos, int y_pos, String current_location) {
@@ -61,42 +61,42 @@ public class map {
 
     public void move(String direction, String current_location, String moved_obj) {
 
-        if (direction.equals("up") == true || direction.equals("north") == true || direction.equals("n") == true) {
+        if (direction.equals("n") == true) {
             if (String.valueOf(current_location.charAt(0)).equals("4") == false) {
                 setCurrentLocation(moved_obj, 1, 0, current_location);
             }
 
             else {
-                System.out.println("Already at the top of the map");
+                System.out.println(moved_obj + " already at the top of the map");
             }
         }
-        if (direction.equals("down") == true || direction.equals("south") == true || direction.equals("s") == true) {
+        if (direction.equals("s") == true) {
             if (String.valueOf(current_location.charAt(0)).equals("0") == false) {
                 
                 setCurrentLocation(moved_obj, -1, 0, current_location);
             }
 
             else {
-                System.out.println("Already at the bottom of the map");
+                System.out.println(moved_obj + " already at the bottom of the map");
             }
         }
-        if (direction.equals("left") == true || direction.equals("west") == true || direction.equals("w") == true) {
+        if (direction.equals("w") == true) {
             if (String.valueOf(current_location.charAt(2)).equals("0") == false) {
                 setCurrentLocation(moved_obj, 0, -1, current_location);
 
             }
 
             else {
-                System.out.println("Already at the far west of the map");
+                System.out.println(moved_obj + " already at the far west of the map");
             }
         }
-        if (direction.equals("right") == true || direction.equals("east") == true || direction.equals("e") == true) {
+        if (direction.equals("e") == true) {
             if (String.valueOf(current_location.charAt(2)).equals("4") == false) {
                 setCurrentLocation(moved_obj, 0, 1, current_location);
             }
 
             else {
-                System.out.println("Already at the far east of the map");
+                System.out.println(moved_obj + " already at the far east of the map");
 
             }
         }

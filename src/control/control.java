@@ -10,4 +10,10 @@ public class control{
         
         
     }
+
+    public String read_and_return() {
+        String input = user_input.nextLine();
+
+        return input;
+    }
 }

@@ -1,4 +1,4 @@
-package wumpus;
+package dangers;
 
 import java.util.Random;
 
@@ -14,10 +14,12 @@ public class wumpus {
     public wumpus(map spawn_map) {
         pm = spawn_map;
         pm.setRandomPosition("wumpus");
+        x = Integer.parseInt(String.valueOf(pm.getCurrentLocation("wumpus").charAt(0)));
+        y = Integer.parseInt(String.valueOf(pm.getCurrentLocation("wumpus").charAt(2)));
         System.out.print("Wumpus spawned at " + pm.getCurrentLocation("wumpus") + "\n");
     }
 
-    public void move(String direction, String current_location, String transport)
+    public void move()
     {
         int determine = rander.nextInt(4);
         String result = "direction";
@@ -25,31 +27,18 @@ public class wumpus {
         switch (determine)
         {
             case 0:
-                result = "right";
+                result = "e";
             case 1:
-                result = "left";
+                result = "w";
             case 2: 
-                result = "up";
+                result = "n";
             case 3:
-                result = "down";           
+                result = "s";           
         }
 
-        pm.move(result, pm.getCurrentLocation("wumpus"), "wumpus");
-    }
-
-    public boolean kill_wumpus() {
-        life = false;
-        return life;
-    }
-
-    public Integer getX()
-    {
-        return x;
-    }
-
-    public Integer getY()
-    {
-        return y;
+        pm.move(result, (x+","+y), "wumpus");
+        x = Integer.parseInt(String.valueOf(pm.getCurrentLocation("wumpus").charAt(0)));
+        y = Integer.parseInt(String.valueOf(pm.getCurrentLocation("wumpus").charAt(2)));
     }
 
 }
