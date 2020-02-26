@@ -7,6 +7,7 @@ import control.control;
 public class player extends control{
 
     private boolean life = true;
+    private int arrows = 3;
     private static Integer id_num = 0;
     private Integer x = null;
     private Integer y = null;
@@ -22,7 +23,20 @@ public class player extends control{
 
     public void take_turn()
     {
+        while (true)
+        {
         move();
+        System.out.println("Do you want to move again? y/n");
+        String choice = user_input.nextLine();
+        if (choice.equals("n") == true)
+        {
+            break;
+        }
+        else
+        {
+            continue;
+        }
+        }
         shoot();
     }
 
@@ -43,12 +57,15 @@ public class player extends control{
     {
         System.out.println("Pick a directions to shoot:\n\t*North\n\t*South\n\t*East\n\t*West");
         String shot = user_input.nextLine();
+        String win_message = "You have killed the wumpus\nYou win!!! :3";
+        String invalid_choice = "Invalid input, skipping shooting";
         shot = shot.toLowerCase();
         shot = String.valueOf(shot.charAt(0));
        // int wumpus_loc_x = Integer.parseInt(String.valueOf(pm.getCurrentLocation("wumpus").charAt(0)));
        // int wumpus_loc_y = Integer.parseInt(String.valueOf(pm.getCurrentLocation("wumpus").charAt(2)));
-        if (shot == "n")
-            {
+        switch(shot)
+        {
+            case "n":
                 for (int i = 0; i < 2; i++)
                 {
                     if (i+x > 4)
@@ -61,10 +78,8 @@ public class player extends control{
                         System.exit(0);
                     }
                 }
-            }
-        
-            if (shot.equals("s") == true)
-            {
+                break;
+            case "s":
                 for (int i = 0; i > -2; i--)
                 {
                     if (i+x < 0)
@@ -78,10 +93,8 @@ public class player extends control{
                         System.exit(0);
                     }
                 }
-            }
-
-            if (shot.equals("w") == true)
-            {
+                break;
+            case "w":
                 for (int i = 0; i > -2; i--)
                 {
                     if (i+y < 0)
@@ -94,26 +107,26 @@ public class player extends control{
                         System.exit(0);
                     }
                 }
-            }
-
-            if (shot.equals("e") == true)
-            {
+                break;
+            case "e":
                 for (int i = 0; i < 2; i++)
-                {
-                    if (i+y > 4)
                     {
-                        break;
+                        if (i+y > 4)
+                        {
+                            break;
+                        }
+                        if (pm.map_grid[x][y+i] == "wumpus")
+                        {
+                            System.out.println("You have killed the wumpus\nYou win!!! :3");
+                            System.exit(0);
+                        }
                     }
-                    if (pm.map_grid[x][y+i] == "wumpus")
-                    {
-                        System.out.println("You have killed the wumpus\nYou win!!! :3");
-                        System.exit(0);
-                    }
-                }
-            }
-            else {
-                System.out.println("Choosing not to shoot.\n");
-            }
+            default:
+            System.out.println(invalid_choice);
+
+        }
+       
+            
     }
     public void kill (String cause)
     {

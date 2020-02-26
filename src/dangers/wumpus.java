@@ -28,12 +28,18 @@ public class wumpus {
         {
             case 0:
                 result = "e";
+                break;
             case 1:
                 result = "w";
+                break;
             case 2: 
                 result = "n";
+                break;
             case 3:
-                result = "s";           
+                result = "s";
+                break;
+            default:
+                result = "s";          
         }
 
         pm.move(result, (x+","+y), "wumpus");
