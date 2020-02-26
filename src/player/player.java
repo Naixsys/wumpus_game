@@ -6,7 +6,6 @@ import map.map;
 import control.control;
 public class player extends control{
 
-    private boolean life = true;
     private int arrows = 3;
     private static Integer id_num = 0;
     private Integer x = null;
@@ -59,10 +58,16 @@ public class player extends control{
         String shot = user_input.nextLine();
         String win_message = "You have killed the wumpus\nYou win!!! :3";
         String invalid_choice = "Invalid input, skipping shooting";
+        String no_arrow_message = "You seem to have no more arrows...";
         shot = shot.toLowerCase();
         shot = String.valueOf(shot.charAt(0));
        // int wumpus_loc_x = Integer.parseInt(String.valueOf(pm.getCurrentLocation("wumpus").charAt(0)));
        // int wumpus_loc_y = Integer.parseInt(String.valueOf(pm.getCurrentLocation("wumpus").charAt(2)));
+        if (arrows == 0)
+        {
+            System.out.println(no_arrow_message);
+            kill("wumpus");
+        }
         switch(shot)
         {
             case "n":
@@ -74,7 +79,7 @@ public class player extends control{
                     }
                     if (pm.map_grid[x+i][y] == "wumpus")
                     {
-                        System.out.println("You have killed the wumpus\nYou win!!! :3");
+                        System.out.println(win_message);
                         System.exit(0);
                     }
                 }
@@ -89,7 +94,7 @@ public class player extends control{
                     }
                     if (pm.map_grid[x+i][y] == "wumpus")
                     {
-                        System.out.println("You have killed the wumpus\nYou win!!! :3");
+                        System.out.println(win_message);
                         System.exit(0);
                     }
                 }
@@ -103,7 +108,7 @@ public class player extends control{
                     }
                     if (pm.map_grid[x][y+i] == "wumpus")
                     {
-                        System.out.println("You have killed the wumpus\nYou win!!! :3");
+                        System.out.println(win_message);
                         System.exit(0);
                     }
                 }
@@ -117,10 +122,11 @@ public class player extends control{
                         }
                         if (pm.map_grid[x][y+i] == "wumpus")
                         {
-                            System.out.println("You have killed the wumpus\nYou win!!! :3");
+                            System.out.println(win_message);
                             System.exit(0);
                         }
                     }
+                break;    
             default:
             System.out.println(invalid_choice);
 
@@ -131,8 +137,6 @@ public class player extends control{
     public void kill (String cause)
     {
 
-        
-        life = false;
         System.out.println("You died via " + cause+"\n");
         System.exit(0);
     }

@@ -6,7 +6,6 @@ import map.map;
 
 public class wumpus {
 
-    private boolean life = true;
     private Integer x = 0;
     private Integer y = 0;
     private map pm;

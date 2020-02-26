@@ -102,4 +102,18 @@ public class map {
         }
     }
 
+    public String display()
+    {
+        String result = "";
+        for (int x =4; x >= 0; x--)
+        {
+            for (int y = 0; y < map_grid[0].length; y++)
+            {
+                result += map_grid[x][y] + " | ";
+            }
+            result += "\n";
+        }
+        return result;
+    }
+
 }
