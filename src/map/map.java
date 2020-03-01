@@ -51,12 +51,21 @@ public class map {
     }
 
     public void setCurrentLocation(String transport, int x_pos, int y_pos, String current_location) {
-        int set_x_pos = Integer.parseInt(String.valueOf(current_location.charAt(0)));
-        int set_y_pos = Integer.parseInt(String.valueOf(current_location.charAt(2)));
-        map_grid[set_x_pos][set_y_pos] = null;
-        set_x_pos += x_pos;
-        set_y_pos += y_pos;
-        map_grid[set_x_pos][set_y_pos] = transport;
+        int ori_x = Integer.parseInt(String.valueOf(current_location.charAt(0)));
+        int ori_y = Integer.parseInt(String.valueOf(current_location.charAt(2)));
+        int set_x_pos = ori_x + x_pos;
+        int set_y_pos = ori_y + y_pos;
+        //Prevent wumpus from overwriting other elements
+        if(map_grid[set_x_pos][set_y_pos] == null && transport.equals("wumpus") )
+        {
+            map_grid[ori_x][ori_y] = null;
+            map_grid[set_x_pos][set_y_pos] = transport;
+        }
+        else if (transport.equals("wumpus") == false)
+        {
+            map_grid[ori_x][ori_y] = null;
+            map_grid[set_x_pos][set_y_pos] = transport;
+        }
     }
 
     public void move(String direction, String current_location, String moved_obj) {
@@ -67,7 +76,10 @@ public class map {
             }
 
             else {
-                System.out.println(moved_obj + " already at the top of the map");
+                if (moved_obj.equals("player") == true)
+                {
+                System.out.println(moved_obj + " already at the top of the map\n");
+                }
             }
         }
         if (direction.equals("s") == true) {
@@ -77,7 +89,10 @@ public class map {
             }
 
             else {
-                System.out.println(moved_obj + " already at the bottom of the map");
+                if (moved_obj.equals("player") == true)
+                {
+                System.out.println(moved_obj + " already at the top of the map\n");
+                }
             }
         }
         if (direction.equals("w") == true) {
@@ -87,7 +102,10 @@ public class map {
             }
 
             else {
-                System.out.println(moved_obj + " already at the far west of the map");
+                if (moved_obj.equals("player") == true)
+                {
+                System.out.println(moved_obj + " already at the top of the map\n");
+                }
             }
         }
         if (direction.equals("e") == true) {
@@ -96,7 +114,10 @@ public class map {
             }
 
             else {
-                System.out.println(moved_obj + " already at the far east of the map");
+                if (moved_obj.equals("player") == true)
+                {
+                System.out.println(moved_obj + " already at the top of the map\n");
+                }
 
             }
         }

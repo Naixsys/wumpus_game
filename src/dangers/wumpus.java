@@ -6,15 +6,13 @@ import map.map;
 
 public class wumpus {
 
-    private Integer x = 0;
-    private Integer y = 0;
+    private int x = 0;
+    private int y = 0;
     private map pm;
     private Random rander = new Random();
     public wumpus(map spawn_map) {
         pm = spawn_map;
         pm.setRandomPosition("wumpus");
-        x = Integer.parseInt(String.valueOf(pm.getCurrentLocation("wumpus").charAt(0)));
-        y = Integer.parseInt(String.valueOf(pm.getCurrentLocation("wumpus").charAt(2)));
         System.out.print("Wumpus spawned at " + pm.getCurrentLocation("wumpus") + "\n");
     }
 
@@ -41,9 +39,7 @@ public class wumpus {
                 result = "s";          
         }
 
-        pm.move(result, (x+","+y), "wumpus");
-        x = Integer.parseInt(String.valueOf(pm.getCurrentLocation("wumpus").charAt(0)));
-        y = Integer.parseInt(String.valueOf(pm.getCurrentLocation("wumpus").charAt(2)));
+        pm.move(result, pm.getCurrentLocation("wumpus"), "wumpus");
     }
 
 }
