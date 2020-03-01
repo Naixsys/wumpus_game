@@ -6,7 +6,7 @@ import map.map;
 import control.control;
 public class player extends control{
 
-    private int arrows = 2;
+    private int arrows = 3;
     private static Integer id_num = 0;
     private Integer x = null;
     private Integer y = null;

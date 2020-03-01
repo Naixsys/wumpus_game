@@ -91,7 +91,7 @@ public class map {
             else {
                 if (moved_obj.equals("player") == true)
                 {
-                System.out.println(moved_obj + " already at the top of the map\n");
+                System.out.println(moved_obj + " already at the bottom of the map\n");
                 }
             }
         }
@@ -104,7 +104,7 @@ public class map {
             else {
                 if (moved_obj.equals("player") == true)
                 {
-                System.out.println(moved_obj + " already at the top of the map\n");
+                System.out.println(moved_obj + " already at the far west of the map\n");
                 }
             }
         }
@@ -116,7 +116,7 @@ public class map {
             else {
                 if (moved_obj.equals("player") == true)
                 {
-                System.out.println(moved_obj + " already at the top of the map\n");
+                System.out.println(moved_obj + " already at the fast east of the map\n");
                 }
 
             }
